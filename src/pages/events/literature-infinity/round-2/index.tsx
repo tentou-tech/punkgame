@@ -120,7 +120,7 @@ const ListComic = () => {
   }, [])
   const fetchCharacter = async () => {
     try {
-      const data = await contentService.comic.getLatestComic(20, offset, [1083])
+      const data = await contentService.comic.getLatestComic(20, offset, [1029])
       if (data.length) {
         setComicList([...comicList, ...data])
         setOffset(offset + 20)
