@@ -4,6 +4,7 @@ import Layout from 'components/Layout'
 import QuestItem from 'components/pages/available-quests/quest'
 import ClamQuestSuccessModal from 'components/pages/campaigns/questItem/claimQuestSuccessModal'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import getConfig from 'next/config'
 import Link from 'next/link'
 import { useContext, useState } from 'react'
 import { toast } from 'react-toastify'
@@ -28,12 +29,17 @@ function AvailableQuests() {
   const [completedQuest, setCompletedQuest] = useState()
   const [openClaimSuccessModal, setClaimSuccessModalOpen] = useState(false)
   const [enrollLoading, setEnrollLoading] = useState(false)
+  const config = getConfig()
   const {
     data: authData,
     isLoading,
     mutate,
   } = useSWR(
-    { key: 'fetch_campaign_auth_data', slug: 'daily-quest-campaign', account: account?.id },
+    {
+      key: 'fetch_campaign_auth_data',
+      slug: config.DAILY_QUEST_CAMPAIGN_SLUG || 'daily-quest-campaign',
+      account: account?.id,
+    },
     ({ key, slug, account }) => (account ? campaignService.getCampaignAuthorizedData(slug) : null),
     {
       revalidateOnFocus: false,

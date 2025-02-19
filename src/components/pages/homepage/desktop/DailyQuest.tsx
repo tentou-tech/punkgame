@@ -12,7 +12,7 @@ import { ModalContext } from 'src/context/modals'
 import { campaignService } from 'src/services/campaignService'
 import { userService } from 'src/services/userService'
 import useSWR from 'swr'
-
+import getConfig from 'next/config'
 export default function DailyQuest() {
   const { account } = useContext(Context)
   const { setSignInOpen } = useContext(ModalContext)
@@ -24,7 +24,7 @@ export default function DailyQuest() {
     isLoading,
     mutate,
   } = useSWR(
-    { key: 'fetch_campaign_auth_data', slug: 'daily-quest-campaign', account: account?.id },
+    { key: 'fetch_campaign_auth_data', slug: getConfig().DAILY_QUEST_CAMPAIGN_SLUG || 'daily-quest-campaign', account: account?.id },
     ({ key, slug, account }) => (account ? campaignService.getCampaignAuthorizedData(slug) : null),
     {
       revalidateOnFocus: false,

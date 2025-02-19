@@ -49,13 +49,6 @@ const PageContent = () => {
           Round 2 - Submit a manga on Creator Portal
         </div>
       </div>
-      <div className='flex justify-center'>
-        <Rule>
-          <div className='text-center xl:max-w-80 xl:mx-auto text-[#5c9efe] text-xs font-medium underline leading-[18px] mt-3'>
-            View rules and reward
-          </div>
-        </Rule>
-      </div>
       {moment().isBefore(moment('2025-02-03')) ? (
         <div className='flex flex-col gap-4 items-center w-full px-4'>
           <div className='flex justify-center mt-10 flex-col items-center'>
@@ -127,7 +120,7 @@ const ListComic = () => {
   }, [])
   const fetchCharacter = async () => {
     try {
-      const data = await contentService.comic.getLatestComic(20, offset, [1083])
+      const data = await contentService.comic.getLatestComic(20, offset, [1029])
       if (data.length) {
         setComicList([...comicList, ...data])
         setOffset(offset + 20)

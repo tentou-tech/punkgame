@@ -158,7 +158,7 @@ export default function CharacterDetail({ id }) {
               </div>
               <div className='w-fit'>
                 by{' '}
-                {characterData?.authorizer_user?.creator ? (
+                {characterData?.authorizer_user?.creator?.slug ? (
                   <Link
                     target='_blank'
                     href={`/artist/${characterData?.authorizer_user?.creator?.slug}`}
@@ -167,7 +167,9 @@ export default function CharacterDetail({ id }) {
                   </Link>
                 ) : (
                   <span className='text-text-brand-defaul'>
-                    {characterData?.authorizer_user?.nickname || 'PunkgaMe'}
+                    {characterData?.authorizer_user?.creator?.pen_name ||
+                      characterData?.authorizer_user?.nickname ||
+                      'PunkgaMe'}
                   </span>
                 )}
               </div>

@@ -12,11 +12,18 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import useSWR from "swr";
 import { useWindowSize } from "usehooks-ts";
 import LatestManga from "./LatestManga";
+import HeadComponent from 'components/Head'
+
 export default function Page(props) {
-  if (props.justHead) {
-    return <></>;
+  if (props.justHead || props.pageProps?.justHead) {
+    return <HeadComponent data={props.pageProps?.metadata || props.metadata} />
   }
-  return <PageContent />;
+  return (
+    <>
+      <HeadComponent data={props.pageProps?.metadata || props.metadata} />
+      <PageContent />
+    </>
+  )
 }
 Page.getLayout = function getLayout(page) {
   return <Layout>{page}</Layout>;
@@ -165,8 +172,13 @@ function PageContent() {
   );
 }
 
-export const getStaticProps = async ({ locale }) => ({
+export const getServerSideProps = async ({ locale }) => ({
   props: {
-    ...(await serverSideTranslations(locale, ["common"])),
+    metadata: {
+      title: 'Punkga.Me | Manga Collection',
+      description:
+        'Read free manga online with fast updates, high-quality translations, and officially licensed chapters. Start reading today!',
+    },
+    ...(await serverSideTranslations(locale, ['common'])),
   },
-});
+})

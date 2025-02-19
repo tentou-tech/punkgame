@@ -49,7 +49,7 @@ function PageContent() {
       <div className='md:container md:mx-auto lg:w-[30%]'>
         {width < 768 && (
           <div
-            onClick={() => router.push('/')}
+            onClick={() => router.back()}
             className='flex sticky top-14 p-4 bg-background z-10 items-center gap-3 text-sm font-medium '>
             <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none'>
               <path

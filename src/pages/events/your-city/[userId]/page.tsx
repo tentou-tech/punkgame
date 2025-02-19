@@ -28,7 +28,9 @@ function PageContent() {
   const [selectedArtwork, setSelectedArtwork] = useState(null)
   const userId = query.userId
   const { data } = useSWR(`get-user-artwork-${userId}`, () => eventService.punktober.getUserArtworks(userId as string))
-  const artworks = data?.data?.data?.user_artwork_topic as any[]
+  const artworks = data?.data?.data?.user_artwork_topic.sort((a, b) => {
+    return moment(a.artwork_topic.date, 'YYYY-MM-DD').isAfter(moment(b.artwork_topic.date, 'YYYY-MM-DD')) ? 1 : -1
+  }) as any[]
   const [tab, setTab] = useState<'calendar' | 'collection'>('calendar')
   const captureRef = useRef<HTMLDivElement>(null)
   const [loading, setLoading] = useState(false)

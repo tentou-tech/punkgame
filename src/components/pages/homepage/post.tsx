@@ -19,12 +19,17 @@ export default function Post({ data }) {
   const { likedList, setLikedList } = useContext(PostListContext)
   const { account } = useContext(Context)
   const { setSignInOpen } = useContext(ModalContext)
-  const likeData = likedList.find((e) => e.id == `manga-${data?.manga?.id}` || e.id == `artwork-${data?.artwork?.id}` || e.id == `character-${data?.character?.id}`)
+  const likeData = likedList.find(
+    (e) =>
+      e.id == `manga-${data?.manga?.id}` ||
+      e.id == `artwork-${data?.artwork?.id}` ||
+      e.id == `character-${data?.character?.id}`
+  )
   const [likeCount, setLikeCount] = useState(
     likeData?.likeCount ||
       data?.artwork?.likes_aggregate?.aggregate?.count ||
       data?.artwork?.likes_aggregate?.aggregate?.count ||
-data?.character?.likes_aggregate?.aggregate?.count ||
+      data?.character?.likes_aggregate?.aggregate?.count ||
       0
   )
   const [isLiked, setIsLiked] = useState(
@@ -32,7 +37,9 @@ data?.character?.likes_aggregate?.aggregate?.count ||
       ? true
       : data.type == 'Manga'
       ? data?.manga?.chapters[0]?.chapters_likes?.length > 0
-      : data.type == "Artwork" ? data?.artwork?.likes?.length > 0 :data?.character?.likes?.length > 0 
+      : data.type == 'Artwork'
+      ? data?.artwork?.likes?.length > 0
+      : data?.character?.likes?.length > 0
   )
   const likeHandler = async () => {
     try {
@@ -46,12 +53,12 @@ data?.character?.likes_aggregate?.aggregate?.count ||
         if (data.type == 'Manga') {
           setLikedList(likedList.filter((e) => e.id != `manga-${data.manga.id}`))
           await contentService.chapter.unlikeChapter(data?.manga?.chapters[0]?.id)
-        } 
-if (data.type == "Artwork") {
+        }
+        if (data.type == 'Artwork') {
           setLikedList(likedList.filter((e) => e.id != `artwork-${data.artwork.id}`))
           await eventService.story.unlikeArtwork(data?.artwork?.id)
         }
-if (data.type == "Character") {
+        if (data.type == 'Character') {
           setLikedList(likedList.filter((e) => e.id != `character-${data.character.id}`))
           await eventService.story.unlikeCharacter(data?.character?.id)
         }
@@ -62,12 +69,12 @@ if (data.type == "Character") {
         if (data.type == 'Manga') {
           setLikedList([...likedList, { id: `manga-${data.manga.id}`, likeCount: newLikeCount }])
           await contentService.chapter.likeChapter(data?.manga?.chapters[0]?.id)
-        } 
-if (data.type == "Artwork") {
+        }
+        if (data.type == 'Artwork') {
           setLikedList([...likedList, { id: `artwork-${data.artwork.id}`, likeCount: newLikeCount }])
           await eventService.story.likeArtwork(data?.artwork?.id)
         }
-if (data.type == "Character") {
+        if (data.type == 'Character') {
           setLikedList([...likedList, { id: `character-${data.character.id}`, likeCount: newLikeCount }])
           await eventService.story.likeCharacter(data?.character?.id)
         }
@@ -91,14 +98,14 @@ if (data.type == "Character") {
           <div className='flex items-center gap-4'>
             <div className='w-10 h-10 relative shrink-0'>
               <Image
-                src={data.manga.manga_creators[1].creator.avatar_url || UserGreen}
+                src={data.manga.manga_creators[1].creator?.avatar_url || UserGreen}
                 alt=''
                 width={40}
                 height={40}
                 className='w-7 h-7 rounded-full object-cover absolute top-0 right-0'
               />
               <Image
-                src={data.manga.manga_creators[0].creator.avatar_url || UserGreen}
+                src={data.manga.manga_creators[0].creator?.avatar_url || UserGreen}
                 alt=''
                 width={40}
                 height={40}
@@ -117,7 +124,7 @@ if (data.type == "Character") {
         ) : (
           <Link href={`/artist/${data.manga.manga_creators[0].creator.slug}`} className='flex items-center gap-4'>
             <Image
-              src={data.manga.manga_creators[0].creator.avatar_url || UserGreen}
+              src={data.manga.manga_creators[0].creator?.avatar_url || UserGreen}
               alt=''
               width={40}
               height={40}
@@ -256,13 +263,13 @@ if (data.type == "Character") {
         </div>
       </div>
     )
-  } 
-if (data.type == "Artwork") {
+  }
+  if (data.type == 'Artwork') {
     return (
       <div className='space-y-4 md:bg-neutral-950 md:p-4 md:rounded-lg'>
         <Link href={`/artist/${data.artwork.creator.slug}`} className='flex items-center gap-4'>
           <Image
-            src={data.artwork.creator.avatar_url || UserGreen}
+            src={data.artwork.creator?.avatar_url || UserGreen}
             alt=''
             width={40}
             height={40}
@@ -298,7 +305,7 @@ if (data.type == "Artwork") {
           </div>
         </div>
         <div className='space-y-2'>
-          <div className='w-full overflow-hidden max-h-[70vh]'>
+          <div className='w-full overflow-hidden max-h-[90vh] flex items-center justify-center'>
             <ImageZoom src={data.artwork.url} width={3000} height={3000} alt='' className='' />
           </div>
           <div className='text-xs font-semibold text-neutral-400 leading-8'>
@@ -392,12 +399,12 @@ if (data.type == "Artwork") {
       </div>
     )
   }
-if (data.type == "Character") {
+  if (data.type == 'Character') {
     return (
       <div className='space-y-4 md:bg-neutral-950 md:p-4 md:rounded-lg'>
         <div className='flex items-center gap-4'>
           <Image
-            src={data.character.authorizer_user.creator.avatar_url || UserGreen}
+            src={data.character.authorizer_user.creator?.avatar_url || UserGreen}
             alt=''
             width={40}
             height={40}
@@ -405,7 +412,9 @@ if (data.type == "Character") {
           />
           <div className='space-y-1'>
             <div className='text-sm font-semibold text-text-brand-focus'>
-              {data.character.authorizer_user.creator.pen_name || data.character.authorizer_user.creator.name}
+              {data.character.authorizer_user.creator?.pen_name ||
+                data.character.authorizer_user.creator?.name ||
+                data.character.authorizer_user.nickname}
             </div>
             <div className='text-xxs text-neutral-400'>{moment(data.updated_at).fromNow()}</div>
           </div>
@@ -413,7 +422,6 @@ if (data.type == "Character") {
         <div className='block'>
           <div className='flex items-center gap-2'>
             <div className='text-lg font-medium'>{data.character.name}</div>
-            
           </div>
           <div className='space-y-1.5'>
             <ReactShowMoreText
@@ -429,7 +437,7 @@ if (data.type == "Character") {
           </div>
         </div>
         <div className='space-y-2'>
-          <div className='w-full overflow-hidden max-h-[70vh]'>
+          <div className='w-full overflow-hidden max-h-[90vh] flex items-center justify-center'>
             <ImageZoom src={data.character.avatar_url} width={3000} height={3000} alt='' className='' />
           </div>
           <div className='text-xs font-semibold text-neutral-400 leading-8'>
@@ -509,9 +517,7 @@ if (data.type == "Character") {
                     <Link
                       className='block'
                       target='_blank'
-                      href={`${getConfig().STORY_EXPLORER_URL}/ipa/${
-                        data.character?.story_ip_asset?.ip_asset_id
-                      }`}>
+                      href={`${getConfig().STORY_EXPLORER_URL}/ipa/${data.character?.story_ip_asset?.ip_asset_id}`}>
                       View on Story Protocol
                     </Link>
                   )}

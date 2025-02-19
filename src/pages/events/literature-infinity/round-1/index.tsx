@@ -149,7 +149,10 @@ const Character = ({ data }) => {
         <div className='absolute hidden w-full bottom-0 p-2 lg:pt-10 lg:p-4 bg-[linear-gradient(180deg,rgba(0,0,0,0.00)_6.71%,#000_76.24%)]'>
           <div className='text-sm font-bold text-white'>{data?.name || 'Unknown artwork title'}</div>
           <div className='text-sm font-medium text-white'>
-            by <span className='text-text-brand-hover'>{data?.creator?.pen_name || 'Unknown creator'}</span>
+            by{' '}
+            <span className='text-text-brand-hover'>
+              {data?.authorizer_user?.creator?.pen_name || data?.authorizer_user?.nickname || 'Unknown creator'}
+            </span>
           </div>
         </div>
       </div>
@@ -198,6 +201,32 @@ const Character = ({ data }) => {
   )
 }
 export const getServerSideProps = async (context) => {
+  const characterId = context.query.character_id
+  if (characterId) {
+    const host = context.req.headers.host || context.req.headers.Host
+    const res = await fetch(
+      host.includes('dev') || host.includes('localhost')
+        ? `https://api.dev.punkga.me/story-event/character/get-by-id/${characterId}`
+        : host.includes('staging')
+        ? `https://api.staging.punkga.me/story-event/character/get-by-id/${characterId}`
+        : `https://api.punkga.me/story-event/character/get-by-id/${characterId}`
+    )
+    const data = await res.json()
+    const characterData = data?.data?.story_character_by_pk
+    const props = {
+      title: characterData?.name || 'Literature Infinity Contest| Win 20M VND with Creative Comics',
+      description:
+        characterData?.description ||
+        'Join the Literature Infinity Contest to celebrate Vietnamese literature and the Year of the Snake!',
+      image: characterData?.avatar_url || '/assets/images/literature-infinity-thumb.png',
+    }
+    return {
+      props: {
+        metadata: props,
+        ...(await serverSideTranslations(context?.locale!, ['common'])),
+      },
+    }
+  }
   const props = {
     title: 'Literature Infinity Contest| Win 20M VND with Creative Comics',
     description: 'Join the Literature Infinity Contest to celebrate Vietnamese literature and the Year of the Snake!',
