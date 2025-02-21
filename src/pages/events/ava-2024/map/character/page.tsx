@@ -12,7 +12,7 @@ import { useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import useSWR from 'swr'
 import { useWindowSize } from 'usehooks-ts'
-
+import { storyChain } from 'src/services/wagmi/config'
 import { Pagination } from '@mui/material'
 import Dropdown, { DropdownMenu, DropdownToggle } from 'components/Dropdown'
 import Button from 'components/core/Button'
@@ -382,7 +382,7 @@ function Event() {
                           <div className='font-jaro text-2xl line-clamp-2'>{characterData?.name}</div>
                           {characterData?.story_ip_asset?.ip_asset_id && (
                             <Link
-                              href={`https://odyssey.explorer.story.foundation/ipa/${characterData?.story_ip_asset?.ip_asset_id}`}
+                              href={`${storyChain.blockExplorers.secondary.url}ipa/${characterData?.story_ip_asset?.ip_asset_id}`}
                               target='_blank'
                               className='text-brand-default text-sm'>
                               {shorten(characterData?.story_ip_asset?.ip_asset_id)}
@@ -512,7 +512,7 @@ function Event() {
                     <div className='font-jaro text-2xl line-clamp-2'>{characterData?.name}</div>
                     {characterData?.story_ip_asset?.ip_asset_id && (
                       <Link
-                        href={`https://odyssey.explorer.story.foundation/ipa/${characterData?.story_ip_asset?.ip_asset_id}`}
+                        href={`${storyChain.blockExplorers.secondary.url}ipa/${characterData?.story_ip_asset?.ip_asset_id}`}
                         target='_blank'
                         className='text-brand-default text-sm'>
                         {shorten(characterData?.story_ip_asset?.ip_asset_id)}

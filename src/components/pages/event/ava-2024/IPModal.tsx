@@ -14,6 +14,7 @@ import Button from 'components/core/Button'
 import { ModalContext } from 'src/context/modals'
 import { toast } from 'react-toastify'
 import { useRouter } from 'next/router'
+import { storyChain } from 'src/services/wagmi/config'
 
 export default function IPModal({
   open,
@@ -132,7 +133,7 @@ export default function IPModal({
                     <div className='font-jaro text-2xl line-clamp-2 mt-2.5'>{data?.name}</div>
                     {data?.story_ip_asset?.ip_asset_id && (
                       <Link
-                        href={`https://odyssey.explorer.story.foundation/ipa/${data?.story_ip_asset?.ip_asset_id}`}
+                        href={`${storyChain.blockExplorers.secondary.url}ipa/${data?.story_ip_asset?.ip_asset_id}`}
                         target='_blank'
                         className=' text-sm mt-1'>
                         ID <span className='underline'>{shorten(data?.story_ip_asset?.ip_asset_id)}</span>
@@ -236,7 +237,7 @@ export default function IPModal({
                       <div className='font-jaro text-2xl line-clamp-2 mt-2.5'>{data?.name}</div>
                       {data?.story_ip_asset?.ip_asset_id && (
                         <Link
-                          href={`https://odyssey.explorer.story.foundation/ipa/${data?.story_ip_asset?.ip_asset_id}`}
+                          href={`${storyChain.blockExplorers.secondary.url}ipa/${data?.story_ip_asset?.ip_asset_id}`}
                           target='_blank'
                           className=' text-sm mt-1'>
                           ID <span className='underline'>{shorten(data?.story_ip_asset?.ip_asset_id)}</span>

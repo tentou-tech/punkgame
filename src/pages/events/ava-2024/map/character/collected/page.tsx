@@ -6,7 +6,7 @@ import { useRouter } from 'next/router'
 import { useContext, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import useSWR from 'swr'
-
+import { storyChain } from 'src/services/wagmi/config'
 import Button from 'components/core/Button'
 import Modal from 'components/pages/event/ava-2024/Modal'
 import RuleAndAward from 'components/pages/event/ava-2024/RuleAndAward'
@@ -201,7 +201,7 @@ export default function Event() {
                             <div className='font-jaro text-2xl line-clamp-2'>{characterData.name}</div>
                             {characterData?.story_ip_asset?.ip_asset_id && (
                               <Link
-                                href={`https://odyssey.explorer.story.foundation/ipa/${characterData?.story_ip_asset?.ip_asset_id}`}
+                                href={`${storyChain.blockExplorers.secondary.url}ipa/${characterData?.story_ip_asset?.ip_asset_id}`}
                                 target='_blank'
                                 className='text-brand-default text-sm'>
                                 {shorten(characterData?.story_ip_asset?.ip_asset_id)}
@@ -304,7 +304,7 @@ export default function Event() {
                   <div className='font-jaro text-2xl line-clamp-2'>{characterData.name}</div>
                   {characterData?.story_ip_asset?.ip_asset_id && (
                     <Link
-                      href={`https://odyssey.explorer.story.foundation/ipa/${characterData?.story_ip_asset?.ip_asset_id}`}
+                      href={`${storyChain.blockExplorers.secondary.url}ipa/${characterData?.story_ip_asset?.ip_asset_id}`}
                       target='_blank'
                       className='text-brand-default text-sm'>
                       {shorten(characterData?.story_ip_asset?.ip_asset_id)}

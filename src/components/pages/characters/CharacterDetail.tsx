@@ -10,6 +10,7 @@ import { toast } from 'react-toastify'
 import { Context } from 'src/context'
 import { ModalContext } from 'src/context/modals'
 import { eventService } from 'src/services/eventService'
+import { storyChain } from 'src/services/wagmi/config'
 import { formatNumber, shorten } from 'src/utils'
 
 export default function CharacterDetail({ id }) {
@@ -149,7 +150,7 @@ export default function CharacterDetail({ id }) {
                       <Link
                         className='block'
                         target='_blank'
-                        href={`https://odyssey.explorer.story.foundation/ipa/${characterData?.story_ip_asset?.ip_asset_id}`}>
+                        href={`${storyChain.blockExplorers.secondary.url}ipa/${characterData?.story_ip_asset?.ip_asset_id}`}>
                         View on Story Protocol
                       </Link>
                     </div>
@@ -177,7 +178,7 @@ export default function CharacterDetail({ id }) {
                 IP ID:{' '}
                 <Link
                   target='_blank'
-                  href={`https://odyssey.explorer.story.foundation/ipa/${characterData?.story_ip_asset?.ip_asset_id}`}
+                  href={`${storyChain.blockExplorers.secondary.url}ipa/${characterData?.story_ip_asset?.ip_asset_id}`}
                   className='text-text-brand-defaul'>
                   {shorten(characterData?.story_ip_asset?.ip_asset_id)}
                 </Link>{' '}

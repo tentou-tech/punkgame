@@ -1,28 +1,27 @@
 import { Pagination } from '@mui/material'
 import Button from 'components/core/Button'
+import IPModal from 'components/pages/event/ava-2024/IPModal'
 import RuleAndAward from 'components/pages/event/ava-2024/RuleAndAward'
 import Background from 'components/pages/event/ava-2024/assets/Main_Map.png'
 import Map from 'components/pages/event/ava-2024/assets/Map.svg'
+import Frame from 'components/pages/event/ava-2024/assets/artwork-frame.png'
 import CharacterFrame from 'components/pages/event/ava-2024/assets/character-frame.png'
 import DecorLeft from 'components/pages/event/ava-2024/assets/decor-left.png'
 import DecorMiddle from 'components/pages/event/ava-2024/assets/decor-middle.png'
 import DecorRight from 'components/pages/event/ava-2024/assets/decor-right.png'
-import Frame from 'components/pages/event/ava-2024/assets/artwork-frame.png'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
 import { useContext, useEffect, useState } from 'react'
-import { isMobile } from 'react-device-detect'
 import { useTranslation } from 'react-i18next'
+import { toast } from 'react-toastify'
+import { Context } from 'src/context'
+import { ModalContext } from 'src/context/modals'
+import usePage from 'src/hooks/usePage'
 import { eventService } from 'src/services/eventService'
 import { shorten } from 'src/utils'
 import useSWR from 'swr'
 import { useWindowSize } from 'usehooks-ts'
-import IPModal from 'components/pages/event/ava-2024/IPModal'
-import { Context } from 'src/context'
-import { ModalContext } from 'src/context/modals'
-import { toast } from 'react-toastify'
-import usePage from 'src/hooks/usePage'
+import { storyChain } from 'src/services/wagmi/config'
 
 export default function Page(props) {
   if (props.justHead) {
@@ -371,7 +370,7 @@ const Content = ({ selected, mutate, setShowSlider }) => {
               <div>
                 {selected?.story_ip_asset?.ip_asset_id && (
                   <Link
-                    href={`https://odyssey.explorer.story.foundation/ipa/${selected?.story_ip_asset?.ip_asset_id}`}
+                    href={`${storyChain.blockExplorers.secondary.url}ipa/${selected?.story_ip_asset?.ip_asset_id}`}
                     target='_blank'
                     className='text-brand-default text-sm'>
                     {shorten(selected?.story_ip_asset?.ip_asset_id)}

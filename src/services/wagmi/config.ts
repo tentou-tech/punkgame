@@ -3,8 +3,8 @@ import { Chain } from 'viem'
 import { createConfig, http } from 'wagmi'
 import { injected, metaMask, walletConnect } from 'wagmi/connectors'
 export const storyChain: Chain = {
-  id: 1516,
-  name: 'Story Public Testnet',
+  id: 1514,
+  name: 'Story Mainnet',
   nativeCurrency: {
     name: 'IP',
     symbol: 'IP',
@@ -12,13 +12,17 @@ export const storyChain: Chain = {
   },
   rpcUrls: {
     default: {
-      http: ['https://odyssey-evm.spidernode.net/'],
+      http: ['https://mainnet.storyrpc.io/'],
     },
   },
   blockExplorers: {
     default: {
-      name: 'Storyscan',
-      url: 'https://odyssey.storyscan.xyz/',
+      name: 'Story Scan',
+      url: 'https://storyscan.xyz/',
+    },
+    secondary: {
+      name: 'Story Explorer',
+      url: 'https://explorer.story.foundation/',
     },
   },
 }
