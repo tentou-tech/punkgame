@@ -27,7 +27,7 @@ export default function RightSection({ className }: { className?: string }) {
           </div>
           <div className='flex flex-col justify-center pr-4'>
             <div className='text-white text-base font-bold leading-normal'>Literature Infinity</div>
-            <div className='text-white/60 text-xs font-normal leading-[18px]'>25 Jan 2025 - 23 Feb 2025</div>
+            <div className='text-white/60 text-xs font-normal leading-[18px]'>25 Jan 2025 - 23 Mar 2025</div>
           </div>
         </Link>
       </div>
