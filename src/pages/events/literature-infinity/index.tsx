@@ -172,7 +172,7 @@ const PageContent = () => {
                         mask='url(#path-1-inside-1_9114_59397)'
                       />
                     </svg>
-                    Start: 3/2 - 23/2
+                    Start: 3/2 - 23/3
                   </div>
                 </div>
                 <svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20' fill='none'>
@@ -327,7 +327,7 @@ const PageContent = () => {
                     mask='url(#path-1-inside-1_9114_59397)'
                   />
                 </svg>
-                Start: 3/2 - 23/2
+                Start: 3/2 - 23/3
               </div>
             </div>
             <svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20' fill='none'>
