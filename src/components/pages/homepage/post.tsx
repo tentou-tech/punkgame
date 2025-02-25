@@ -28,7 +28,7 @@ export default function Post({ data }) {
   const [likeCount, setLikeCount] = useState(
     likeData?.likeCount ||
       data?.artwork?.likes_aggregate?.aggregate?.count ||
-      data?.artwork?.likes_aggregate?.aggregate?.count ||
+      data?.manga?.chapters?.[0]?.chapters_likes_aggregate?.aggregate?.count ||
       data?.character?.likes_aggregate?.aggregate?.count ||
       0
   )
