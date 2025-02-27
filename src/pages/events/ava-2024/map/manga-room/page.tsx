@@ -22,7 +22,7 @@ import { eventService } from 'src/services/eventService'
 import { shorten } from 'src/utils'
 import useSWR from 'swr'
 import { useWindowSize } from 'usehooks-ts'
-
+import { storyChain } from 'src/services/wagmi/config'
 export default function Page(props) {
   if (props.justHead) {
     return <></>
@@ -276,7 +276,7 @@ const Content = ({ selected, mutate }) => {
               <div>
                 {selected?.story_ip_asset?.ip_asset_id && (
                   <Link
-                    href={`https://odyssey.explorer.story.foundation/ipa/${selected?.story_ip_asset?.ip_asset_id}`}
+                    href={`${storyChain.blockExplorers.secondary.url}ipa/${selected?.story_ip_asset?.ip_asset_id}`}
                     target='_blank'
                     className='text-brand-default text-sm'>
                     {shorten(selected?.story_ip_asset?.ip_asset_id)}

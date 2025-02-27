@@ -13,7 +13,7 @@ import { userService } from 'src/services/userService'
 import { shorten } from 'src/utils'
 import useSWR, { mutate } from 'swr'
 import SubmissionTable from './submissionTable'
-
+import { storyChain } from 'src/services/wagmi/config'
 import Frame from 'components/pages/event/ava-2024/assets/frame.svg'
 import Placeholder from 'components/pages/event/ava-2024/assets/placeholder.png'
 import Modal from 'components/core/Modal'
@@ -606,7 +606,7 @@ const Character = ({ data, value, onChange, max }) => {
         <div className='mt-2 font-jaro w-full truncate text-xl'>{data.name}</div>
         {data.story_ip_asset?.ip_asset_id && (
           <Link
-            href={`https://odyssey.explorer.story.foundation/ipa/${data?.story_ip_asset?.ip_asset_id}`}
+            href={`${storyChain.blockExplorers.secondary.url}ipa/${data?.story_ip_asset?.ip_asset_id}`}
             target='_blank'
             className='mt-1 text-xs font-medium text-brand-default'
             onClick={(e) => e.stopPropagation()}>

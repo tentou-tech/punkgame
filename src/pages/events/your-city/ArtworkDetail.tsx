@@ -13,6 +13,7 @@ import Dropdown, { DropdownMenu, DropdownToggle } from 'components/Dropdown'
 import Link from 'next/link'
 import Modal from 'components/pages/event/your-city/Modal'
 import ReactHtmlParser from 'react-html-parser'
+import { storyChain } from 'src/services/wagmi/config'
 
 export default function ArtworkDetail({ id }) {
   const { account } = useContext(Context)
@@ -152,7 +153,7 @@ export default function ArtworkDetail({ id }) {
                       <Link
                         className='block'
                         target='_blank'
-                        href={`https://odyssey.explorer.story.foundation/ipa/${artworkData?.story_ip_asset?.ip_asset_id}`}>
+                        href={`${storyChain.blockExplorers.secondary.url}ipa/${artworkData?.story_ip_asset?.ip_asset_id}`}>
                         View on Story Protocol
                       </Link>
                     </div>
@@ -172,7 +173,7 @@ export default function ArtworkDetail({ id }) {
                 IP ID:{' '}
                 <Link
                   target='_blank'
-                  href={`https://odyssey.explorer.story.foundation/ipa/${artworkData?.story_ip_asset?.ip_asset_id}`}
+                  href={`${storyChain.blockExplorers.secondary.url}ipa/${artworkData?.story_ip_asset?.ip_asset_id}`}
                   className='text-text-brand-defaul'>
                   {shorten(artworkData?.story_ip_asset?.ip_asset_id)}
                 </Link>{' '}

@@ -11,6 +11,7 @@ import { toast } from 'react-toastify'
 import { Context } from 'src/context'
 import { ModalContext } from 'src/context/modals'
 import { eventService } from 'src/services/eventService'
+import { storyChain } from 'src/services/wagmi/config'
 import { formatNumber, shorten } from 'src/utils'
 
 export default function ArtworkDetail({ data }) {
@@ -120,9 +121,7 @@ export default function ArtworkDetail({ data }) {
                   <Link
                     className='block'
                     target='_blank'
-                    href={`${getConfig().STORY_EXPLORER_URL}/ipa/${
-                      data.story_artworks?.[0].story_ip_asset.ip_asset_id
-                    }`}>
+                    href={`${storyChain.blockExplorers.secondary.url}ipa/${data.story_artworks?.[0].story_ip_asset.ip_asset_id}`}>
                     View on Story Protocol
                   </Link>
                 )}
@@ -150,7 +149,7 @@ export default function ArtworkDetail({ data }) {
               IP ID:{' '}
               <Link
                 target='_blank'
-                href={`${getConfig().STORY_EXPLORER_URL}/ipa/${data.story_artworks?.[0]?.story_ip_asset?.ip_asset_id}`}
+                href={`${storyChain.blockExplorers.secondary.url}ipa/${data.story_artworks?.[0]?.story_ip_asset?.ip_asset_id}`}
                 className='text-text-brand-defaul'>
                 {shorten(data.story_artworks?.[0]?.story_ip_asset?.ip_asset_id)}
               </Link>{' '}

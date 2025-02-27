@@ -15,6 +15,7 @@ import { ModalContext } from 'src/context/modals'
 import { PostListContext } from 'src/context/postList'
 import { contentService } from 'src/services/contentService'
 import { eventService } from 'src/services/eventService'
+import { storyChain } from 'src/services/wagmi/config'
 export default function Post({ data }) {
   const { likedList, setLikedList } = useContext(PostListContext)
   const { account } = useContext(Context)
@@ -385,9 +386,7 @@ export default function Post({ data }) {
                     <Link
                       className='block'
                       target='_blank'
-                      href={`${getConfig().STORY_EXPLORER_URL}/ipa/${
-                        data.artwork.story_artworks[0]?.story_ip_asset?.ip_asset_id
-                      }`}>
+                      href={`${storyChain.blockExplorers.secondary.url}ipa/${data.artwork.story_artworks[0]?.story_ip_asset?.ip_asset_id}`}>
                       View on Story Protocol
                     </Link>
                   )}
@@ -517,7 +516,7 @@ export default function Post({ data }) {
                     <Link
                       className='block'
                       target='_blank'
-                      href={`${getConfig().STORY_EXPLORER_URL}/ipa/${data.character?.story_ip_asset?.ip_asset_id}`}>
+                      href={`${storyChain.blockExplorers.secondary.url}ipa/${data.character?.story_ip_asset?.ip_asset_id}`}>
                       View on Story Protocol
                     </Link>
                   )}
